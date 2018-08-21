@@ -1,0 +1,10 @@
+.Log-in-box {
+    width: 450px;
+    min-height: 50px;
+    /*border: 1px solid black;*/
+    margin: auto;
+    /*background: rgba(235, 235, 235, .9) ;*/
+    position: relative;
+    top:20%;
+    transform: translateY(20%);
+}

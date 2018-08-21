@@ -1,0 +1,75 @@
+.App {
+  text-align: center;
+}
+
+.Landing-page {
+  min-height: 800px;
+  background-image: url("./Assets/Images/festival.jpg");
+  background-repeat: no-repeat;
+  background:linear-gradient (rgb(63,153,244),rgb(58,108,256));
+    background-size: cover;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: rgb(63,153,244);
+  height: 150px;
+  padding: 0px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+/*@keyframes App-logo-spin {*/
+  /*from { transform: rotate(0deg); }*/
+  /*to { transform: rotate(360deg); }*/
+/*}*/
+
+.User-Dashboard {
+    display: grid;
+    grid-template-columns: 0px 60px;
+    margin-left:10px;
+}
+
+.User-Dashboard-Boxes {
+    display: grid;
+    grid-template-columns: 300px 300px 300px;
+    margin:auto;
+    margin-top:10%;
+    margin-left: 5%;
+}
+.User-Dashboard1 {
+    display: grid;
+    grid-template-columns: 200px 800px;
+    margin-left:5px;
+}
+
+.logout {
+    align-self: right;
+    color:blue;
+}
+.Host-dashboard-body {
+    display: grid;
+    grid-template-columns: 200px 400px 200px;
+}
+
+.All-festivals{
+    display: grid;
+    grid-template-columns: 40px 30px;
+    align-content: left;
+}
+.Search-results{
+    align-content: left;
+}
+
+
