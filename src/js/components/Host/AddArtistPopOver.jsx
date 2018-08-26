@@ -1,6 +1,7 @@
 import React from "react";
-import {Button, ButtonGroup, ButtonToolbar, Modal, Popover, Tooltip, FormGroup, Label, FormControl, ControlLabel, ModalBody, ModalHeader, ModalTitle} from "react-bootstrap";
-import "../../CSS/LandingPage.css"
+import {Button, ControlLabel, FormControl, FormGroup, Modal, ModalBody, ModalHeader, ModalTitle} from "react-bootstrap";
+import "../../../CSS/LandingPage.css"
+import {backendURL} from "../../config";
 
 
 export default class AddArtistPopOver extends React.Component {
@@ -40,7 +41,7 @@ export default class AddArtistPopOver extends React.Component {
     //checks if user is valid and if artist has already been added to festival. returns an array like ["true", "false"]. if [1]==false, then can move on to adding to list
     handleClickAddArtistName = () =>{
         console.log("adding brand new artist")
-            fetch("http://localhost:8080/host/addNewArtist?artistName="+this.state.artist.name)
+            fetch(backendURL+"/host/addNewArtist?artistName="+this.state.artist.name)
 
                 .then((response) => {return response.json()})
                 .then((response) => {return response.content})
@@ -89,19 +90,13 @@ export default class AddArtistPopOver extends React.Component {
 
 
     render() {
-        const popover = (
-            <Popover id="modal-popover" title="popover">
-                very popover. such engagement
-            </Popover>
-        );
 
-        const tooltip = <Tooltip id="modal-tooltip">wow.</Tooltip>;
 
         return (
             <div>
-                <a style={{cursor:"pointer", color:"black"}}onClick={this.handleShow}>
-                    Add Artist
-                </a>
+                <Button style={{cursor:"pointer", color:"black"}}onClick={this.handleShow}>
+                    Add New Artist
+                </Button>
 
 
                 <Modal show={this.state.show} onHide={this.handleClose}>
@@ -118,7 +113,7 @@ export default class AddArtistPopOver extends React.Component {
                                 <FormGroup
                                     controlId="formBasicText"
                                 >
-                                    <ControlLabel>Artist Name:    {this.state.message}</ControlLabel>
+                                    <ControlLabel>Artist Name:    </ControlLabel>
                                     <FormControl
                                         type="text"
                                         value={this.state.artist.name}

@@ -1,12 +1,13 @@
 .App {
   text-align: center;
+
 }
 
 .Landing-page {
   min-height: 800px;
   background-image: url("./Assets/Images/festival.jpg");
   background-repeat: no-repeat;
-  background:linear-gradient (rgb(63,153,244),rgb(58,108,256));
+  /*background:linear-gradient (,rgb(63,153,244),rgb(58,108,256));*/
     background-size: cover;
 }
 
@@ -35,11 +36,11 @@
   /*to { transform: rotate(360deg); }*/
 /*}*/
 
-.User-Dashboard {
-    display: grid;
-    grid-template-columns: 0px 60px;
-    margin-left:10px;
-}
+/*.User-Dashboard {*/
+    /*display: grid;*/
+    /*grid-template-columns: 0px 60px;*/
+    /*margin-left:10px;*/
+/*}*/
 
 .User-Dashboard-Boxes {
     display: grid;
@@ -50,7 +51,7 @@
 }
 .User-Dashboard1 {
     display: grid;
-    grid-template-columns: 200px 800px;
+    grid-template-columns: 500px 600px;
     margin-left:5px;
 }
 
@@ -65,11 +66,128 @@
 
 .All-festivals{
     display: grid;
-    grid-template-columns: 40px 30px;
+    grid-template-columns: 0px 200px;
     align-content: left;
 }
 .Search-results{
     align-content: left;
 }
+.Liststyle {
+    list-style-type: none;
+}
 
 
+.grid-container{
+
+    display:grid;
+    grid-template-columns: 300px 600px 400px;
+
+}
+
+.grid-item-1{
+    background-color: rgb(245,245,245);
+    margin-left: 20px;
+    margin-right: 30px;
+    border: 1px solid black;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    height: 300px;
+    overflow: scroll;
+
+ }
+.grid-item-2{
+    background-color: rgb(245,245,245);
+    text-align: left;
+    margin-left: 10px;
+    margin-right:40px;
+    height: 300px;
+    border: 1px solid black;
+    padding: 10px;
+    overflow: scroll;
+
+}
+.grid-item-3{
+    width: 450px;
+    height: 300px;
+    border: 1px solid black;
+    margin: auto;
+    overflow: scroll;
+    background-color: rgb(245,245,245);
+
+}
+
+.All-festivals-header{
+    text-align: left;
+}
+.List-of-all-festivals{
+    margin-left: 20px;
+    border: 1px solid black;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    overflow: scroll;
+}
+.Playlist-song-info{
+    display:grid;
+    justify-items: center;
+    grid-template-columns:200px 100px;
+    margin-left:75px;
+
+}
+
+.box1{
+    border: 1px solid black;
+    width:200px;
+}
+.box2{
+    border: 1px solid black;
+    width:100px;
+}
+Festival-info-2{
+    display:grid;
+    grid-template-columns: auto;
+}
+
+
+.Host-festival{
+    background-color: rgb(245,245,245);
+    border: 1px solid black;
+    margin: 30px;
+    padding:10px;
+    overflow:scroll;
+    height: 300px;
+    display:grid;
+    grid-template-columns: 150px 150px;
+
+
+}
+.Host-festival2{
+    background-color: rgb(245,245,245);
+    border: 1px solid black;
+    margin: 30px;
+    padding:10px;
+    overflow:scroll;
+    height: 300px;
+
+
+
+}
+.Add-festival{
+    background-color: rgb(245,245,245);
+    border: 1px solid black;
+    margin-top: 20px;
+    margin-left:20px;
+    alignment: center;
+    width:500px;
+
+}
+.Side-bar{
+    background-color: rgb(245,245,245);
+    border: 1px solid black;
+    margin: 30px;
+    padding:10px;
+    overflow:scroll;
+    height: 300px;
+    display:grid;
+}

@@ -1,4 +1,4 @@
 
 export const DEBUG = true
 
-export const backendURL = "http://localhost:8080"
+export const backendURL = "https://young-crag-10332.herokuapp.com/"

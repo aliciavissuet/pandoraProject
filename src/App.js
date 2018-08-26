@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import logo from './Assets/Images/Pandora.svg';
-import background1 from './Assets/Images/lolla.jpg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 import LandingPage from "./js/components/LandingPage";
-import UserDashboard from "./js/components/UserDashboard";
-import HostDashboard from "./js/components/HostDashboard";
-import ManagePlayLists from "./js/components/ManagePlayLists";
-import HostAddFestivals from "./js/components/HostAddFestivals";
-import {Button, Tab, Tabs} from "react-bootstrap";
-import PlayListPage from "./js/components/ManagePlayLists";
-import SearchBar from "./js/components/SearchBar";
+import UserDashboard from "./js/components/User/UserDashboard";
+import HostDashboard from "./js/components/Host/HostDashboard";
+import ManagePlayLists from "./js/components/User/ManagePlayLists";
+import HostAddFestivals from "./js/components/Host/HostAddFestivals";
+import {Tab, Tabs} from "react-bootstrap";
+import SearchBar from "./js/components/User/SearchBar";
 import ArtistPage from "./js/components/ArtistPage";
 import {DEBUG} from "./js/config";
+import NavBarHost from "./js/components/Host/NavBarHost";
+import Footer from "./js/components/Footer";
 
 
 class App extends Component {
@@ -29,7 +29,8 @@ class App extends Component {
             tab:"home",
             searchResults:"",
             listOfFestivals:[],
-            artistName:""
+            artistName:"",
+            songs:[]
 
 
 
@@ -72,6 +73,9 @@ class App extends Component {
         console.log("here too", this.state.artistName)
 
     }
+    updateSongs = (response) => {
+        this.setState({songs:response})
+    }
 
 
 
@@ -98,9 +102,15 @@ class App extends Component {
 
           {!this.state.landingPage && !this.state.artistPage && this.state.userType ==="host" &&
           <div>
+              <NavBarHost
+                  user={this.state.user}
+                  updateSignIn={this.updateLandingPage}
+              />
               <Tabs activeKey={this.state.hostKey} onSelect={this.handleSelectHostKey} id="UserDashboardTabs">
+
                   <Tab eventKey={"manageFestivals"} title="Manage Current Festivals">
-                    <HostDashboard
+
+                      <HostDashboard
                           user={this.state.user}
                           updateLandingPage = {this.updateLandingPage}
                           updateUser = {this.updateUser}
@@ -137,11 +147,13 @@ class App extends Component {
               user={this.state.user}
               updateHostDashboard={this.updateArtistPage}
               artistName={this.state.artistName}
+              updateSongs={this.updateSongs}
+              songs={this.state.songs}
 
           />
           }
 
-          {!this.state.landingPage && this.state.userType ==="user" && <div>
+          {!this.state.landingPage && !this.state.artistPage && this.state.userType ==="user" && <div>
               <SearchBar
                updateSignIn={this.updateLandingPage}
                 updateSearchResults={this.updateSearchResults}
@@ -157,6 +169,9 @@ class App extends Component {
                           updateSignIn={this.updateLandingPage}
                           searchResults={this.state.searchResults}
                           listOfFestivals={this.state.listOfFestivals}
+                          updateArtistPage={this.updateArtistPage}
+                          updateArtist={this.updateArtist}
+                          updateListOfFestivals={this.updateListOfFestivals}
 
                       />
                   </Tab>
@@ -178,6 +193,8 @@ class App extends Component {
           </div>
 
           }
+
+          <Footer/>
 
       </div>
     );

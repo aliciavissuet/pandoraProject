@@ -1,7 +1,7 @@
 import React from "react";
-import {Button, ButtonGroup, ButtonToolbar, Modal, ModalBody, Popover, Tab, Tooltip, Form, FormGroup, Label, FormControl, ControlLabel} from "react-bootstrap";
+import {Button, ButtonGroup, ButtonToolbar, ControlLabel, FormControl, FormGroup, Modal} from "react-bootstrap";
 import "../../CSS/LandingPage.css"
-import {DEBUG} from "../config";
+import {backendURL, DEBUG} from "../config";
 
 export default class SignUpPopOver extends React.Component {
     constructor(props, context) {
@@ -16,6 +16,7 @@ export default class SignUpPopOver extends React.Component {
                 lastName:"",
                 email:""},
             key:"host",
+            message:""
 
         };
     }
@@ -26,6 +27,7 @@ export default class SignUpPopOver extends React.Component {
     }
 
     handleShow() {
+        this.setState({message:""})
         this.setState({ show: true });
     }
     handleChangeSignup = (event,label) =>{
@@ -36,24 +38,27 @@ export default class SignUpPopOver extends React.Component {
 
     handleClickSignup = ()=> {
         DEBUG && console.log("CLICK");
-        fetch("http://localhost:8080/" +this.state.key+ "/check?name="+this.state.signUp.email)
+        fetch(backendURL+"/" +this.state.key+ "/check?name="+this.state.signUp.email)
             .then(response => {return response.json()})
             .then(response => doAfterFetch1(response.content))
 
         const doAfterFetch1 = (response) =>{
             if (response==="false"){
-                fetch("http://localhost:8080/"+this.state.key+"/add", {
+                fetch(backendURL+"/"+this.state.key+"/add", {
                     method:"POST",
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(this.state.signUp)
-                }).then(() => {doAfterFetch2()})
+                })
+                    .then((response) =>{return response.json()})
+                    .then((response) => {doAfterFetch2(response.content)})
             }
         };
 
-        const doAfterFetch2 = ()=>{
+        const doAfterFetch2 = (response)=>{
+            this.setState({message:response})
             this.props.updateUser(this.state.signUp.email);
             this.props.updateUserType(this.state.key);
             this.props.updateLandingPage(false);
@@ -61,11 +66,7 @@ export default class SignUpPopOver extends React.Component {
     };
 
     render() {
-        const popover = (
-            <Popover id="modal-popover" title="popover">
-                very popover. such engagement
-            </Popover>
-        );
+
         const userOrHost =  (
             <ButtonToolbar style={{margin:"center"}}>
                 <ButtonGroup >
@@ -75,7 +76,7 @@ export default class SignUpPopOver extends React.Component {
             </ButtonToolbar>
         );
 
-        const tooltip = <Tooltip id="modal-tooltip">wow.</Tooltip>;
+
 
         return (
             <div>
@@ -128,6 +129,7 @@ export default class SignUpPopOver extends React.Component {
 
 
                     </Modal.Body>
+                    <Modal.Footer>{this.state.message}</Modal.Footer>
                 </Modal>
             </div>
         );

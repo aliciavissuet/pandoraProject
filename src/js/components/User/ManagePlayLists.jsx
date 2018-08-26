@@ -1,8 +1,6 @@
 import React from "react";
-import {Button, Tab, Navbar, FormGroup, FormControl, Nav, NavItem} from "react-bootstrap";
-import "../../App.css";
-import {DEBUG} from "../config";
-import SearchBar from "./SearchBar";
+import "../../../App.css";
+import {backendURL} from "../../config";
 
 
 export default class ManagePlayLists extends React.Component {
@@ -31,26 +29,24 @@ export default class ManagePlayLists extends React.Component {
 
 
     componentWillMount(){
-        fetch("http://localhost:8080/listFestivals")
+        fetch(backendURL+"/listFestivals")
             .then(response => {return response.json()})
             .then(response => {this.setState({allFestivals:response.content})})
             // .then(response => {this.setState({allFestivals:response})});
 
-        fetch("http://localhost:8080/user/listFestivals?name="+this.state.user)
+        fetch(backendURL+"/user/listFestivals?name="+this.state.user)
             .then(response => {return response.json()})
             .then(response => {this.setState({festivals:response.content})})
             // .then(response => {this.setState({festivals:response})});
 
 
-        const consoleLog = (r) =>{
-            console.log(r);
-            return r;}
+
     }
 
 
 
     handleAddFestival = (festivalIndexNum) => {
-        fetch("http://localhost:8080/user/addFestival?name=" + this.state.user + "&festivalName="+this.state.allFestivals[festivalIndexNum],)
+        fetch(backendURL+"/user/addFestival?name=" + this.state.user + "&festivalName="+this.state.allFestivals[festivalIndexNum],)
 
             .then(response => {return response.json()})
             .then(response => {this.props.updateListOfFestivals(response.content)})
@@ -59,9 +55,7 @@ export default class ManagePlayLists extends React.Component {
             // .then(response => {this.setState({festivals:response})})
             // .then(response =>{this.props.updateListOfFestivals(response)})
 
-        const consoleLog = (r) =>{
-            console.log(r, "r");
-            return r;}
+
     };
 
         render(){
@@ -70,27 +64,33 @@ export default class ManagePlayLists extends React.Component {
             <div>
 
                 <div><h4>{this.state.message}</h4></div>
-                <div className={"User-Dashboard1"} style={{
+                    <div className={"User-Dashboard1"}
+                         style={{overflow:"scroll"}}
+                    >
+                        <div className={"List-of-all-festivals"}>
+                            <div className={"All-festivals-header"}>
+                                <h4> List of All Festivals </h4>
+                            </div>
+                            {this.state.allFestivals.map((festival, index)=>
+                                <div className={"All-festivals"}>
+                                    <div>
+                                        <h4><button
+                                            onClick={() => this.handleAddFestival(index)}> Add </button></h4>
+                                    </div>
+                                    <div>
+                                        <h4>{festival}</h4></div>
 
-                    overflow:"scroll"
-                }}>
-                <div>
-                    <h4> List of All Festivals </h4>
-                    {this.state.allFestivals.map((festival, index)=>
-                        <div className={"All-festivals"}>
-                            <div><h4>{festival}</h4></div>
-                            <div><h4><button  onClick={() => this.handleAddFestival(index)}> Add </button></h4></div>
+                                </div>
+                            )}
                         </div>
-                    )}
-                </div>
-                <div className={"Search-results"}style={{
+                        <div className={"Search-results"}style={{
 
-                    overflow:"scroll"
-                }}>
-                    <h4>Search Results:</h4>
-                    {this.props.searchResults}
-                </div>
-            </div>
+                            overflow:"scroll"
+                        }}>
+                            <h4>Search Results:</h4>
+                            {this.props.searchResults}
+                        </div>
+                    </div>
             </div>
 
             )

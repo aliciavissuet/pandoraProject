@@ -1,5 +1,6 @@
 import {Button} from "react-bootstrap";
 import React from "react";
+import {backendURL} from "../../config";
 export default class HostAddFestivals extends React.Component {
 
 
@@ -24,7 +25,7 @@ export default class HostAddFestivals extends React.Component {
         const doAfterFetch = (state) =>{
 
             if(state==="success"){
-                fetch("http://localhost:8080/host/listFestivals?name="+this.props.user)
+                fetch(backendURL+"/host/listFestivals?name="+this.props.user)
                     .then((response1) => {return response1.json()})
                     .then((response1) => {return response1.content})
                     .then((response1) => {this.props.updateListOfFestivals(response1)})
@@ -33,7 +34,7 @@ export default class HostAddFestivals extends React.Component {
 
         }
 
-        fetch("http://localhost:8080/host/addFestival?name="+this.props.user, {
+        fetch(backendURL+"/host/addFestival?name="+this.props.user, {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -59,40 +60,10 @@ export default class HostAddFestivals extends React.Component {
 
     };
 
-    // componentDidMount(){
-    //     console.log("component will mount")
-    //     console.log(this.state.festivals)
-    //
-    //     const doAfterCWM = (response) => {
-    //         console.log("doAfter", response)
-    //         this.setState({festivals:response})
-    //         this.props.updateListOfFestivals(response)
-    //     }
-    //
-    //     fetch("http://localhost:8080/host/getFestival?name=" + this.props.user)
-    //         .then((response)=> {
-    //             return response.json()
-    //         })
-    //         .then((response) => {
-    //             return response.content
-    //         })
-    //         .then((response) => doAfterCWM(response))
-    //         .then(() => console.log("last", this.state.festivals))
-    //
-    //
-    // }
-
-
     render() {
 
         return (
-            <div style={{
-                width: "450px",
-                height: "250px",
-                border: "1px solid black",
-                margin: "auto",
-                background: "rgba(235,235,235,.9)"
-            }}>
+            <div className={"Add-festival"}>
 
                 <h2>Add a Festival</h2>
 
@@ -119,6 +90,9 @@ export default class HostAddFestivals extends React.Component {
 
                 <div>
                     <Button onClick={this.handleFestivalClick}> Add Festival </Button>
+                </div>
+                <div>
+                    <h5>{this.state.message}</h5>
                 </div>
             </div>
 

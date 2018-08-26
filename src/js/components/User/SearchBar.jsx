@@ -1,5 +1,6 @@
 import React from "react";
 import {Button, FormControl, Nav, Navbar, NavItem} from "react-bootstrap";
+import {backendURL} from "../../config";
 
 export default class SearchBar extends React.Component{
     constructor(props){
@@ -15,7 +16,7 @@ export default class SearchBar extends React.Component{
 
     handleSearchClick = () => {
 
-        fetch("http://localhost:8080/user/searchFestivals?name="+this.state.festivalSearch)
+        fetch(backendURL+"/user/searchFestivals?name="+this.state.festivalSearch)
             .then(response => {return response.json()} )
             .then(response => doAfterHandleSearchClick(response.content))
             .then(() => {console.log(this.state.searchResults)});

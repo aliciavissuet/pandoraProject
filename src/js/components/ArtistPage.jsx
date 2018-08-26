@@ -1,11 +1,7 @@
 import React from "react";
-import {Button, ListGroup, ListGroupItem, Tab, Modal, Label, Tooltip, Form, FormGroup} from "react-bootstrap";
-import {DEBUG} from "../config";
-import SearchBar from "./SearchBar";
+import {backendURL} from "../config";
 import "../../CSS/UserDashboard.css"
-import AddArtistPopOver from "./AddArtistPopOver";
 import AddSongPopOver from "./AddSongPopOver";
-import SignUpPopOver from "./SignUpPopOver";
 
 export default class ArtistPage extends React.Component{
     constructor(props) {
@@ -15,34 +11,30 @@ export default class ArtistPage extends React.Component{
             user: this.props.user,
             songs: [],
             festivals: [],
+
         }
     }
 
     componentWillMount() {
-        console.log("will mount", this.props.artistName)
-        console.log(this.props.user, "will mount**")
-        const doAfterCWM = (response) => {
-            console.log("doAfter", response)
-            this.setState({songs: response})
 
-            fetch("http://localhost:8080/artist/?artistName=" + this.state.artistName)
-                .then((response) => {
-                    return response.json()
-                })
-                .then((response) => {
-                    doAfterCWM(response.content)
-                })
-                .then(() => console.log("last", this.state.festivals))
-        }
+        fetch(backendURL+"/host/artist/displaySongs?artistName="+this.props.artistName)
+            .then((response) => {return response.json()})
+            .then((response) => {this.setState({songs:response.content})})
 
+        fetch(backendURL+"/host/displayArtistFestivalList?artistName="+this.props.artistName)
+            .then((response) => {return response.json()})
+            .then((response) => {this.setState({festivals:response.content})})
     }
 
-    componentWillReceiveProps(props){
-        console.log(props.artistName, "props")
+    // handleSongClick =(artist) =>{
+    //     fetch(backendURL+"/")
+    // }
+
+    refresh = () => {
+        fetch(backendURL+"/host/artist/displaySongs?artistName="+this.props.artistName)
+            .then((response) => {return response.json()})
+            .then((response) => {this.setState({songs:response.content})})
     }
-
-
-
 
         render (){
             return (
@@ -50,12 +42,35 @@ export default class ArtistPage extends React.Component{
                 <div>
 
                     <h2>{this.state.artistName} Info</h2>
-                    <h4>Songs: {this.state.songs}</h4>
-                    <h4>Festivals Playing at: {this.state.festivals}</h4>
+                    <h4>Festivals Playing at:</h4>
+
+                    {this.state.festivals.map((festival1) =>
+                        <li
+                            className={"Liststyle"}
+                        >{festival1}
+                        </li>
+                    )}
 
                 </div>
+                   <AddSongPopOver
+                       artistName={this.state.artistName}
+                       updateSongs={this.props.updateSongs}
+                       refresh={this.refresh}
+                    />
+                   <div>
+                       <ul>
+                           <h4> Songs: </h4>
+
+
+                           {this.state.songs.map((song) =>
+                               <li className={"Liststyle"}>
+                                   {song}
+                               </li>
+                           )}
+                       </ul>
+                   </div>
                 <div>
-                    <Button onClick={() => this.props.updateHostDashboard(false)}>back to dashboard</Button>
+                    <a onClick={() => this.props.updateHostDashboard(false)}>back to dashboard</a>
                 </div>
                </div>
 

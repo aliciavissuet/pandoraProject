@@ -1,6 +1,6 @@
 import React from "react";
-import {Button, Tabs, Tab, ButtonToolbar, ButtonGroup, Form, FormGroup, ControlLabel, FormControl, DropdownButton, MenuItem} from "react-bootstrap";
-import {DEBUG} from "../config";
+import {Button, ButtonGroup, ButtonToolbar, DropdownButton, FormControl, FormGroup, MenuItem} from "react-bootstrap";
+import {backendURL, DEBUG} from "../config";
 import "../../CSS/LandingPage.css"
 import SignUpPopOver from "./SignUpPopOver";
 
@@ -29,7 +29,7 @@ export default class LandingPage extends React.Component{
 
     handleClick = () => {
 
-        fetch("http://localhost:8080/"+this.state.key+"/check?name="+this.state.userName)
+        fetch(backendURL+"/"+this.state.key+"/check?name="+this.state.userName)
             .then(response => {return response.json()} )
             .then(response => doAfterFetch(response.content));
 
@@ -87,7 +87,7 @@ export default class LandingPage extends React.Component{
                         <FormControl
                             type="text"
                             value={this.state.userName}
-                            placeholder={"Username"}
+                            placeholder={"email"}
                             onChange={this.handleChange}/>
                         {userOrHost}
                         <Button onClick={this.handleClick}> login </Button>
